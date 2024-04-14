@@ -1,6 +1,6 @@
 import java.util.LinkedList;
 
-public class BoundedPriorityQueueSet<Task> {
+public class BoundedPriorityQueueSet {
     private Node first;
     private Node last;
     private int numElements = 0;
@@ -23,22 +23,28 @@ public class BoundedPriorityQueueSet<Task> {
     }
 
     public boolean isEmpty(){
-        if (numElements==0){
-            return false;
-        }
-        return true;
+        return numElements==0;
     }
 
     public boolean isFull(){
-        if (numElements==MAX_SIZE){
-            return true;
+        return numElements==MAX_SIZE;
+    }
+
+    private int calcPosition(Task task) {
+        if (first == null){
+            return -1;
         }
-        return false;
+        Node current = first;
+        int position = 0;
+
+        while (current != null && task.getDeadline().compareTo(current.getData().getDeadline()) > 0) {
+            current = current.getNext();
+            position++;
+        }
+
+        return position;
     }
 
-    private int calcPosition(Task task){
-
-    }
 
     protected class Node {
         private Task data;

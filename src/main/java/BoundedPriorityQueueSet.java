@@ -16,6 +16,10 @@ public class BoundedPriorityQueueSet<Task> {
         first = null;
     }
 
+    public int size(){
+        return numElements;
+    }
+
     protected class Node {
         private Task data;
         private Node next;
@@ -41,12 +45,4 @@ public class BoundedPriorityQueueSet<Task> {
             return this.data;
         }
     }
-
-    public int size(){
-        return numElements;
-    }
-
-
-
-
 }

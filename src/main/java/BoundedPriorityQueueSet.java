@@ -8,10 +8,12 @@ public class BoundedPriorityQueueSet<Task> {
 
     public BoundedPriorityQueueSet(int maxSize) {
         MAX_SIZE = maxSize;
+        first = null;
     }
 
     public BoundedPriorityQueueSet() {
         MAX_SIZE = 10;
+        first = null;
     }
 
     protected class Node {

@@ -9,11 +9,13 @@ public class BoundedPriorityQueueSet<Task> {
     public BoundedPriorityQueueSet(int maxSize) {
         MAX_SIZE = maxSize;
         first = null;
+        last = null;
     }
 
     public BoundedPriorityQueueSet() {
         MAX_SIZE = 10;
         first = null;
+        last = null;
     }
 
     protected class Node {
@@ -46,6 +48,23 @@ public class BoundedPriorityQueueSet<Task> {
         return numElements;
     }
 
+    public boolean isEmpty(){
+        if (numElements==0){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isFull(){
+        if (numElements==MAX_SIZE){
+            return true;
+        }
+        return false;
+    }
+
+    private int calcPosition(Task task){
+        
+    }
 
 
 

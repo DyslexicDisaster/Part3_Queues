@@ -1,6 +1,8 @@
+import java.util.LinkedList;
+
 public class BoundedPriorityQueueSet<Task> {
-    private Node<Task> first;
-    private Node<Task> last;
+    private Node first;
+    private Node last;
 
     private int numElements;
 
@@ -29,4 +31,12 @@ public class BoundedPriorityQueueSet<Task> {
             return this.data;
         }
     }
+
+    public int size(){
+        return numElements;
+    }
+
+
+
+
 }

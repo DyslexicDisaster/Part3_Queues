@@ -1,8 +1,16 @@
 public class BoundedPriorityQueueSet<Task> {
-    private Node<Task> first;
-    private Node<Task> last;
+    private Node first;
+    private Node last;
+    private int numElements = 0;
+    private final int MAX_SIZE;
 
-    private int numElements;
+    public BoundedPriorityQueueSet(int maxSize) {
+        MAX_SIZE = maxSize;
+    }
+
+    public BoundedPriorityQueueSet() {
+        MAX_SIZE = 10;
+    }
 
     protected class Node {
         private Task data;

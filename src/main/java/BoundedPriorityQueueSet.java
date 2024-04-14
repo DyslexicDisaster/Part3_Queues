@@ -30,16 +30,26 @@ public class BoundedPriorityQueueSet {
         return numElements==MAX_SIZE;
     }
 
-    private int calcPosition(Task task) {
-        if (first == null){
+    private int calcPosition(Task task) throws DuplicateElementException {
+        if (isFull()){
             return -1;
         }
-        Node current = first;
-        int position = 0;
 
-        while (current != null && task.getDeadline().compareTo(current.getData().getDeadline()) > 0) {
+        if (isEmpty()){
+            return 0;
+        }
+
+        Node current = first;
+        current = current.getNext();
+        int position = 1;
+
+        while (current != null && !task.equals(current)) {
             current = current.getNext();
             position++;
+        }
+
+        if (task.equals(current)){
+            throw new DuplicateElementException("Duplicate Found!");
         }
 
         return position;

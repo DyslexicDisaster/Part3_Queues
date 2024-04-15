@@ -1,33 +1,30 @@
 import java.util.LinkedList;
 
 public class BoundedPriorityQueueSet {
-    private Node first;
-    private Node last;
-    private int numElements = 0;
+
+    private LinkedList<String> queue;
     private final int MAX_SIZE;
 
     public BoundedPriorityQueueSet(int maxSize) {
         MAX_SIZE = maxSize;
-        first = null;
-        last = null;
+        queue = new LinkedList<String>();
     }
 
     public BoundedPriorityQueueSet() {
         MAX_SIZE = 10;
-        first = null;
-        last = null;
+        queue = new LinkedList<String>();
     }
 
     public int size(){
-        return numElements;
+        return queue.size();
     }
 
     public boolean isEmpty(){
-        return numElements==0;
+        return queue.isEmpty();
     }
 
     public boolean isFull(){
-        return numElements==MAX_SIZE;
+        return queue.size()==MAX_SIZE;
     }
 
     private int calcPosition(Task task) throws DuplicateElementException {
@@ -54,7 +51,6 @@ public class BoundedPriorityQueueSet {
 
         return position;
     }
-
 
     protected class Node {
         private Task data;

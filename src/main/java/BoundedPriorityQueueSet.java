@@ -47,15 +47,16 @@ public class BoundedPriorityQueueSet {
             throw new DuplicateElementException("Duplicate Found!");
         }
 
-        for (int i = 1; i <= queue.size(); i++) {
-            if (task.compareTo(queue.get(i)) == -1){
+        for (int i = 1; i < queue.size(); i++) {
+            if (task.compareTo(queue.get(i)) < 0){
                 return i;
-            } else if (task.compareTo(queue.get(i)) == 1) {
+            } else if (task.compareTo(queue.get(i)) > 0) {
                 return i+1;
             }
         }
-        return queue.size() + 1;
+        return queue.size();
     }
+
 
 
     public void add(Task task) throws DuplicateElementException {

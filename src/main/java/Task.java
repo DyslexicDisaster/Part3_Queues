@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Task {
+public class Task implements Comparable<Task>{
     private String owner;
     private String description;
     private LocalDate deadline;
@@ -50,6 +50,8 @@ public class Task {
         return Objects.equals(owner, task.owner) && Objects.equals(description, task.description) && Objects.equals(deadline, task.deadline);
     }
 
+
+
     @Override
     public int hashCode() {
         return Objects.hash(owner, description, deadline);
@@ -62,5 +64,11 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", deadline=" + deadline +
                 '}';
+    }
+
+    // Todo: Seb we need to use compareto method using comparable so that we can order the queue properly in accordance to deadline
+    @Override
+    public int compareTo(Task o) {
+        return this.getDeadline().compareTo(o.getDeadline());
     }
 }

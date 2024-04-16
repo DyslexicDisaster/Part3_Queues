@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
@@ -7,6 +8,7 @@ public class BoundedPriorityQueueSet {
     private final int MAX_SIZE;
 
     public BoundedPriorityQueueSet(int maxSize) {
+        // Todo: Seb Add validation for max size? maybe?
         MAX_SIZE = maxSize;
         queue = new LinkedList<Task>();
     }
@@ -46,8 +48,10 @@ public class BoundedPriorityQueueSet {
         }
 
         for (int i = 1; i <= queue.size(); i++) {
-            if (task.getDeadline().isBefore(queue.get(i).getDeadline())){
+            if (task.compareTo(queue.get(i)) == -1){
                 return i;
+            } else if (task.compareTo(queue.get(i)) == 1) {
+                return i+1;
             }
         }
         return queue.size() + 1;
@@ -79,6 +83,16 @@ public class BoundedPriorityQueueSet {
         Task task2 = queue.get(0);
         return task2;
     }
+
+
+    public Task peek(){
+        if (isEmpty()){
+            return null;
+        }
+        Task task2 = queue.get(0);
+        return task2;
+    }
+
 
 
 }

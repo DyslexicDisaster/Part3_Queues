@@ -47,13 +47,12 @@ public class BoundedPriorityQueueSet {
         if (isDuplicate(task)) {
             throw new DuplicateElementException("Duplicate Found!");
         }
-        //Why do we start at 1 instead of 0 and needless else if statement, why return i+1????
-        for (int i = 1; i < queue.size(); i++) {
+        for (int i = 0; i < queue.size(); i++) {
             if (task.compareTo(queue.get(i)) < 0){
                 return i;
-            } else if (task.compareTo(queue.get(i)) > 0) {
+            } /*else if (task.compareTo(queue.get(i)) > 0) {
                 return i+1;
-            }
+            }*/
         }
         return queue.size();
     }

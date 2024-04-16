@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -22,6 +23,19 @@ public class Menu {
                 "5. View the space remaining in the queue",
                 "6. Exit"
         };
+        while(true){
+            showMenu(menu,"Please make your choice");
+            int choice = sc.nextInt();
+
+            switch (choice){
+                case 1:
+                    //addTask(isRisky);
+                    break;
+                case 2:
+                    System.out.println("test");
+                    break;
+            }
+        }
     }
     public static void showMenu(String[] options, String title) {
         System.out.println(title);
@@ -29,4 +43,20 @@ public class Menu {
             System.out.println(options[i]);
         }
     }
+    /*public static void addTask(Boolean isRisky){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter owner:");
+        String owner = sc.next();
+
+        System.out.println("Enter description:");
+        String desc = sc.next();
+
+        System.out.println("Enter deadline:");
+        String deadlineString = sc.next();
+        //User can't enter LocalDate data so must parse it
+        LocalDate deadline = LocalDate.parse(deadlineString);
+
+        Task userTask = new Task(owner,desc,deadline);
+
+    }*/
 }

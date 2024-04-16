@@ -2,17 +2,17 @@ import java.util.LinkedList;
 
 public class BoundedPriorityQueueSet {
 
-    private LinkedList<String> queue;
+    private LinkedList<Task> queue;
     private final int MAX_SIZE;
 
     public BoundedPriorityQueueSet(int maxSize) {
         MAX_SIZE = maxSize;
-        queue = new LinkedList<String>();
+        queue = new LinkedList<Task>();
     }
 
     public BoundedPriorityQueueSet() {
         MAX_SIZE = 10;
-        queue = new LinkedList<String>();
+        queue = new LinkedList<Task>();
     }
 
     public int size(){
@@ -36,45 +36,17 @@ public class BoundedPriorityQueueSet {
             return 0;
         }
 
-        Node current = first;
-        current = current.getNext();
-        int position = 1;
-
-        while (current != null && !task.equals(current)) {
-            current = current.getNext();
-            position++;
-        }
-
-        if (task.equals(current)){
+        if (queue.contains(task)) {
             throw new DuplicateElementException("Duplicate Found!");
         }
 
-        return position;
+        for (int i = 1; i <= queue.size(); i++) {
+            if (task.getDeadline().isBefore(queue.get(i).getDeadline())){
+                return i;
+            }
+        }
+        return queue.size() + 1;
     }
 
-    protected class Node {
-        private Task data;
-        private Node next;
 
-        public Node(Task data) {
-            this.data = data;
-            next = null;
-        }
-
-        public void setNext(Node next) {
-            this.next = next;
-        }
-
-        public Node getNext() {
-            return this.next;
-        }
-
-        public void setData(Task data) {
-            this.data = data;
-        }
-
-        public Task getData() {
-            return this.data;
-        }
-    }
 }

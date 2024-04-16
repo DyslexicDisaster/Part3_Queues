@@ -94,5 +94,24 @@ public class BoundedPriorityQueueSet {
     }
 
 
+    public Task remove(){
+        if (isEmpty()){
+            throw new NoSuchElementException("Queue Empty!");
+        }
+        Task task2 = queue.get(0);
+        queue.remove(queue.get(0));
+        return task2;
+    }
+
+
+    public Task poll(){
+        if (isEmpty()){
+            return null;
+        }
+        Task task2 = queue.get(0);
+        queue.remove(queue.get(0));
+        return task2;
+    }
+
 
 }

@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 public class BoundedPriorityQueueSet {
 
@@ -61,6 +62,7 @@ public class BoundedPriorityQueueSet {
         queue.add(calcPosition(task), task);
     }
 
+
     public boolean offer(Task task) throws DuplicateElementException {
         if (isFull() || isDuplicate(task)){
             return false;
@@ -68,4 +70,15 @@ public class BoundedPriorityQueueSet {
         queue.add(calcPosition(task), task);
         return true;
     }
+
+
+    public Task element(){
+        if (isEmpty()){
+            throw new NoSuchElementException("Queue Empty!");
+        }
+        Task task2 = queue.get(0);
+        return task2;
+    }
+
+
 }

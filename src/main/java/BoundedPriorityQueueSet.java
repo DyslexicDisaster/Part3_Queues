@@ -23,6 +23,10 @@ public class BoundedPriorityQueueSet {
         return queue.isEmpty();
     }
 
+    public boolean isDuplicate(Task task){
+        return queue.contains(task);
+    }
+
     public boolean isFull(){
         return queue.size()==MAX_SIZE;
     }
@@ -36,7 +40,7 @@ public class BoundedPriorityQueueSet {
             return 0;
         }
 
-        if (queue.contains(task)) {
+        if (isDuplicate(task)) {
             throw new DuplicateElementException("Duplicate Found!");
         }
 
@@ -57,5 +61,11 @@ public class BoundedPriorityQueueSet {
         queue.add(calcPosition(task), task);
     }
 
-
+    public boolean offer(Task task) throws DuplicateElementException {
+        if (isFull() || isDuplicate(task)){
+            return false;
+        }
+        queue.add(calcPosition(task), task);
+        return true;
+    }
 }

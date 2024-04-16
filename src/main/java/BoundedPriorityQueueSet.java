@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
@@ -8,7 +7,9 @@ public class BoundedPriorityQueueSet {
     private final int MAX_SIZE;
 
     public BoundedPriorityQueueSet(int maxSize) {
-        // Todo: Seb Add validation for max size? maybe?
+        if(maxSize <= 0){
+            throw new IllegalArgumentException("The max size must be a positive number");
+        }
         MAX_SIZE = maxSize;
         queue = new LinkedList<Task>();
     }

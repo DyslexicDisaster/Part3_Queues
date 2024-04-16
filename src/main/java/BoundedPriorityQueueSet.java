@@ -49,4 +49,13 @@ public class BoundedPriorityQueueSet {
     }
 
 
+    public void add(Task task) throws DuplicateElementException {
+        if (isFull()){
+            throw new IllegalStateException("Queue is full!");
+        }
+
+        queue.add(calcPosition(task), task);
+    }
+
+
 }

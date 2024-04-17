@@ -38,6 +38,9 @@ public class Menu {
                 case 2:
                     viewTask(isRisky);
                     break;
+                case 3:
+                    markTaskDone(isRisky);
+                    break;
             }
         }
     }
@@ -55,7 +58,7 @@ public class Menu {
         System.out.println("Enter description:");
         String desc = sc.next();
 
-        System.out.println("Enter deadline:");
+        System.out.println("Enter deadline YYYY-MM-DD:");
         String deadlineString = sc.next();
         //User can't enter LocalDate data so must parse it
         LocalDate deadline = LocalDate.parse(deadlineString);
@@ -91,6 +94,17 @@ public class Menu {
             }
         }catch (NoSuchElementException e){
             System.out.println("Failed to view task: " + e.getMessage());
+        }
+    }
+    public static void markTaskDone(boolean isRisky){
+        try{
+            if (isRisky){
+                System.out.println(taskQueue.remove());
+            }else {
+                System.out.println(taskQueue.poll());
+            }
+        }catch (NoSuchElementException e){
+            System.out.println("Failed to remove task: " + e.getMessage());
         }
     }
 }

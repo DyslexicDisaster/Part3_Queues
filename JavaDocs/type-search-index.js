@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"<Unnamed>","l":"BoundedPriorityQueueSet"},{"p":"<Unnamed>","l":"DuplicateElementException"},{"p":"<Unnamed>","l":"Menu"},{"p":"<Unnamed>","l":"Task"}];updateSearchResults();

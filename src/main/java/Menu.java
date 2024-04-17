@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -35,7 +36,7 @@ public class Menu {
                     addTask(isRisky);
                     break;
                 case 2:
-                    System.out.println("test");
+                    viewTask(isRisky);
                     break;
             }
         }
@@ -79,6 +80,17 @@ public class Menu {
             }
         }catch (DuplicateElementException e){
             System.out.println("Task failed to add: " + e.getMessage());
+        }
+    }
+    public static void viewTask(boolean isRisky){
+        try{
+            if (isRisky){
+                System.out.println(taskQueue.element());
+            }else {
+                System.out.println(taskQueue.peek());
+            }
+        }catch (NoSuchElementException e){
+            System.out.println("Failed to view task: " + e.getMessage());
         }
     }
 }

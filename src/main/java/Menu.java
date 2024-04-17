@@ -3,6 +3,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Menu {
+    private static BoundedPriorityQueueSet taskQueue;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Random rd = new Random();
@@ -11,7 +12,9 @@ public class Menu {
 
         System.out.println("Please enter how big you want to make your queue");
         int maxSize = sc.nextInt();
-        BoundedPriorityQueueSet taskQueue = new BoundedPriorityQueueSet(maxSize);
+        //Couldn;t get taskQueue if only used in main method
+        //BoundedPriorityQueueSet taskQueue = new BoundedPriorityQueueSet(maxSize);
+        taskQueue = new BoundedPriorityQueueSet(maxSize);
 
         System.out.println("Task manager successfully created");
 
@@ -29,7 +32,7 @@ public class Menu {
 
             switch (choice){
                 case 1:
-                    //addTask(isRisky);
+                    addTask(isRisky);
                     break;
                 case 2:
                     System.out.println("test");
@@ -43,7 +46,7 @@ public class Menu {
             System.out.println(options[i]);
         }
     }
-    /*public static void addTask(Boolean isRisky){
+    public static void addTask(Boolean isRisky) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter owner:");
         String owner = sc.next();
@@ -58,5 +61,24 @@ public class Menu {
 
         Task userTask = new Task(owner,desc,deadline);
 
-    }*/
+        /*if(isRisky){
+            taskQueue.add(userTask);
+            System.out.println("Task added");
+        } else {
+            taskQueue.offer(userTask);
+            System.out.println("Task added");
+            //would need to throw DuplicateElementException in header
+        }*/
+        try {
+            if(isRisky){
+                taskQueue.add(userTask);
+                System.out.println("Task added");
+            } else {
+                taskQueue.offer(userTask);
+                System.out.println("Task added");
+            }
+        }catch (DuplicateElementException e){
+            System.out.println("Task failed to add: " + e.getMessage());
+        }
+    }
 }

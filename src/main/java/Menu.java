@@ -41,6 +41,16 @@ public class Menu {
                 case 3:
                     markTaskDone(isRisky);
                     break;
+                case 4:
+                    //No point in making a method if it can be sorted with just a sout statement and one call
+                    System.out.println("The number of remaining tasks is " + taskQueue.size());
+                    break;
+                case 5:
+                    spaceRemaining(maxSize);
+                    break;
+                case 6:
+
+                    break;
             }
         }
     }
@@ -106,5 +116,9 @@ public class Menu {
         }catch (NoSuchElementException e){
             System.out.println("Failed to remove task: " + e.getMessage());
         }
+    }
+    public static void spaceRemaining(int max){
+        int sizeLeft = max - taskQueue.size();
+        System.out.println("The space remaining is: " + sizeLeft);
     }
 }

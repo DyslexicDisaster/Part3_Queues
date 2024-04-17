@@ -31,6 +31,7 @@ public class Menu {
                 "5. View the space remaining in the queue",
                 "6. Exit"
         };
+        //always repeats so user can perform multiple actions in one session
         while (true) {
             showMenu(menu, "Please make your choice");
             int choice = sc.nextInt();
@@ -61,6 +62,11 @@ public class Menu {
         }
     }
 
+    /**
+     * Turns an array of strings into a readable condense menu
+     * @param options array of strings each one corresponding to a different menu option
+     * @param title A string to give a title to the menu
+     */
     public static void showMenu(String[] options, String title) {
         System.out.println(title);
         for (int i = 0; i < options.length; i++) {
@@ -68,6 +74,10 @@ public class Menu {
         }
     }
 
+    /**
+     * Prompts user to add a task to the queue, uses the .add method if risky is true or the safer .offer method if false
+     * @param isRisky boolean deciding which of the two methods to use
+     */
     public static void addTask(Boolean isRisky) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter owner:");
@@ -104,6 +114,10 @@ public class Menu {
         }
     }
 
+    /**
+     * allows user to view the next task uses the .element method if risky is true or the safer .peek method if false
+     * @param isRisky boolean deciding which of the two methods to use
+     */
     public static void viewTask(boolean isRisky) {
         try {
             if (isRisky) {
@@ -116,6 +130,10 @@ public class Menu {
         }
     }
 
+    /**
+     * Allows user to remove a single task from the queue, uses the .remove method if risky is true or the safer .poll method if false
+     * @param isRisky boolean deciding which of the two methods to use
+     */
     public static void markTaskDone(boolean isRisky) {
         try {
             if (isRisky) {
@@ -128,11 +146,22 @@ public class Menu {
         }
     }
 
+    /**
+     * Calculates the remaining space left for tasks in the queue
+     * @param max The max size of the queue needed for the calculation
+     */
     public static void spaceRemaining(int max) {
         int sizeLeft = max - taskQueue.size();
         System.out.println("The space remaining is: " + sizeLeft);
     }
 
+    /**
+     * Prints whatever tasks are left in the queue into a textfile called "tasks_left.txt".
+     * Once that's completed it will ask the user to guess what approach the menu has been using so far, safe or risky.
+     * Will congragulate the user if the guess correctly or console if not.
+     * @param isRisky boolean corresponding to which approach has been used safe or risky
+     * @throws FileNotFoundException if the file "tasks_Left.txt" cannot be created
+     */
     public static void exit(boolean isRisky) throws FileNotFoundException {
         Scanner sc = new Scanner(System.in);
         PrintWriter w = new PrintWriter(new File("tasks_Left.txt"));
@@ -158,6 +187,7 @@ public class Menu {
             if (userGuess.equalsIgnoreCase(systemApproach)) {
                 System.out.println("Yippee! You guessed correctly.");
             } else {
+                //If user enters invalid data this message will always show this is not intended
                 System.out.println("Aww you guessed wrong better luck next time");
             }
         }while (!userGuess.equalsIgnoreCase("safe") && !userGuess.equalsIgnoreCase("risky"));

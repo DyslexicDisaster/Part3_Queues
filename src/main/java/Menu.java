@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -5,7 +8,8 @@ import java.util.Scanner;
 
 public class Menu {
     private static BoundedPriorityQueueSet taskQueue;
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner sc = new Scanner(System.in);
         Random rd = new Random();
         //Used for methods later
@@ -27,11 +31,11 @@ public class Menu {
                 "5. View the space remaining in the queue",
                 "6. Exit"
         };
-        while(true){
-            showMenu(menu,"Please make your choice");
+        while (true) {
+            showMenu(menu, "Please make your choice");
             int choice = sc.nextInt();
 
-            switch (choice){
+            switch (choice) {
                 case 1:
                     addTask(isRisky);
                     break;
@@ -49,17 +53,21 @@ public class Menu {
                     spaceRemaining(maxSize);
                     break;
                 case 6:
-
-                    break;
+                    exit(isRisky);
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
+
     public static void showMenu(String[] options, String title) {
         System.out.println(title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
         }
     }
+
     public static void addTask(Boolean isRisky) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter owner:");
@@ -73,7 +81,7 @@ public class Menu {
         //User can't enter LocalDate data so must parse it
         LocalDate deadline = LocalDate.parse(deadlineString);
 
-        Task userTask = new Task(owner,desc,deadline);
+        Task userTask = new Task(owner, desc, deadline);
 
         /*if(isRisky){
             taskQueue.add(userTask);
@@ -84,41 +92,74 @@ public class Menu {
             //would need to throw DuplicateElementException in header
         }*/
         try {
-            if(isRisky){
+            if (isRisky) {
                 taskQueue.add(userTask);
                 System.out.println("Task added");
             } else {
                 taskQueue.offer(userTask);
                 System.out.println("Task added");
             }
-        }catch (DuplicateElementException e){
+        } catch (DuplicateElementException e) {
             System.out.println("Task failed to add: " + e.getMessage());
         }
     }
-    public static void viewTask(boolean isRisky){
-        try{
-            if (isRisky){
+
+    public static void viewTask(boolean isRisky) {
+        try {
+            if (isRisky) {
                 System.out.println(taskQueue.element());
-            }else {
+            } else {
                 System.out.println(taskQueue.peek());
             }
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             System.out.println("Failed to view task: " + e.getMessage());
         }
     }
-    public static void markTaskDone(boolean isRisky){
-        try{
-            if (isRisky){
+
+    public static void markTaskDone(boolean isRisky) {
+        try {
+            if (isRisky) {
                 System.out.println(taskQueue.remove());
-            }else {
+            } else {
                 System.out.println(taskQueue.poll());
             }
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             System.out.println("Failed to remove task: " + e.getMessage());
         }
     }
-    public static void spaceRemaining(int max){
+
+    public static void spaceRemaining(int max) {
         int sizeLeft = max - taskQueue.size();
         System.out.println("The space remaining is: " + sizeLeft);
+    }
+
+    public static void exit(boolean isRisky) throws FileNotFoundException {
+        Scanner sc = new Scanner(System.in);
+        PrintWriter w = new PrintWriter(new File("tasks_Left.txt"));
+
+        while (!taskQueue.isEmpty()) {
+            Task t = taskQueue.poll();
+            w.println(t);
+        }
+        System.out.println("All remaining task have been written to file");
+        System.out.println();
+
+        String userGuess;
+        do {
+            System.out.println("Can you guess which approach was used? Risky or Safe?");
+            userGuess = sc.next();
+
+            String systemApproach;
+            if (isRisky) {
+                systemApproach = "Risky";
+            } else {
+                systemApproach = "Safe";
+            }
+            if (userGuess.equalsIgnoreCase(systemApproach)) {
+                System.out.println("Yippee! You guessed correctly.");
+            } else {
+                System.out.println("Aww you guessed wrong better luck next time");
+            }
+        }while (!userGuess.equalsIgnoreCase("safe") && !userGuess.equalsIgnoreCase("risky"));
     }
 }
